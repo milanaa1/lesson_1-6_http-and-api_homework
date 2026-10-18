@@ -78,7 +78,57 @@ function renderFilms(films) {
         collectionElement.append(card);
     }
 }
+const formElement = document.querySelector('[data-form="entry"]');
+const submitButton = formElement.querySelector('[data-action="submit"]');
 
+function readFilmFromForm(form) {
+    const formData = new FormData(form);
+
+    return {
+        title: formData.get('title').trim(),
+        year: Number(formData.get('year')),
+        genre: formData.get('genre'),
+        rating: Number(formData.get('rating')),
+        isWatched: formData.has('isWatched'),
+    };
+}
+
+async function createFilm(film) {
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(film),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+    }
+
+    return response.json();
+}
+
+async function handleFormSubmit(event) {
+    event.preventDefault();
+    submitButton.disabled = true;
+    setStatus('Сохранение…', 'Отправляем фильм на сервер.');
+
+    try {
+        const newFilm = readFilmFromForm(formElement);
+        await createFilm(newFilm);
+        formElement.reset();
+        await loadFilms();
+    } catch (error) {
+        console.error('Не удалось добавить фильм:', error);
+        setStatus(
+            'Ошибка сохранения',
+            'Фильм не добавлен. Проверьте, что API запущен, и отправьте форму ещё раз.'
+        );
+    } finally {
+        submitButton.disabled = false;
+    }
+}
+
+formElement.addEventListener('submit', handleFormSubmit);
 reloadButton.addEventListener('click', loadFilms);
 
 loadFilms();

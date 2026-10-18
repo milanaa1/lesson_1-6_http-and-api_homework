@@ -23,6 +23,23 @@
       "genre": "мультфильм",
       "rating": 8,
       "isWatched": false
+    },
+    {
+      "title": "Начало",
+      "year": 2010,
+      "genre": "фантастика",
+      "rating": 9,
+      "isWatched": true,
+      "id": "2wRaK8vDjag"
+    },
+    {
+      "title": "Шрек",
+      "year": 2001,
+      "genre": "мультфильм",
+      "rating": 8,
+      "isWatched": false,
+      "id": "j4WO11zKwXg"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
