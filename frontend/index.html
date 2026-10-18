@@ -1,95 +1,113 @@
 <!doctype html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Стартовый интерфейс домашней работы по HTTP и REST API"
-    />
-    <title>API-витрина</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <script src="./script.js" defer></script>
-  </head>
-  <body>
-    <header class="page-header">
-      <div class="page-header__content">
-        <p class="page-header__eyebrow">ДЗ 6 · HTTP и API</p>
-        <h1 class="page-header__title">API-витрина</h1>
-        <p class="page-header__lead">
-          Выберите тему, замените демонстрационный ресурс и свяжите этот интерфейс
-          с собственным REST API.
-        </p>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Фильмотека: клиент для учебного REST API" />
+  <title>Фильмотека</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="./script.js" defer></script>
+</head>
+
+<body>
+  <header class="page-header">
+    <div class="page-header__content">
+      <p class="page-header__eyebrow">ДЗ 6 · HTTP и API</p>
+      <h1 class="page-header__title">Фильмотека</h1>
+      <p class="page-header__lead">
+        Каталог фильмов: что уже посмотрено и что хочется посмотреть.
+      </p>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="panel panel--collection" aria-labelledby="collection-title">
+      <div class="panel__header">
+        <div>
+          <p class="panel__eyebrow">Коллекция</p>
+          <h2 class="panel__title" id="collection-title">Фильмы</h2>
+        </div>
+
+        <button class="button button--secondary" type="button" data-action="reload">
+          Обновить
+        </button>
       </div>
-    </header>
 
-    <main class="workspace">
-      <section class="panel panel--collection" aria-labelledby="collection-title">
-        <div class="panel__header">
-          <div>
-            <p class="panel__eyebrow">Коллекция</p>
-            <h2 class="panel__title" id="collection-title">Объекты из API</h2>
-          </div>
+      <p class="endpoint">
+        Endpoint:
+        <code class="endpoint__value" data-ui="endpoint">http://localhost:3000/films</code>
+      </p>
 
-          <button class="button button--secondary" type="button" data-action="reload">
-            Обновить
+      <div class="status" data-ui="status" role="status" aria-live="polite">
+        <strong class="status__title">Ожидание подключения</strong>
+        <span class="status__text">Реализуйте первый GET-запрос в script.js.</span>
+      </div>
+
+      <div class="collection" data-ui="collection" aria-live="polite"></div>
+    </section>
+
+    <section class="panel panel--form" aria-labelledby="form-title">
+      <div class="panel__header">
+        <div>
+          <p class="panel__eyebrow">Новая запись</p>
+          <h2 class="panel__title" id="form-title">Добавить фильм</h2>
+        </div>
+      </div>
+
+      <form class="entry-form" data-form="entry">
+        <div class="field">
+          <label class="field__label" for="entry-title">Название</label>
+          <input class="field__control" id="entry-title" name="title" type="text" minlength="2"
+            placeholder="Например, Начало" required />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="entry-year">Год выхода</label>
+          <input class="field__control" id="entry-year" name="year" type="number" min="1895" max="2030"
+            placeholder="Например, 2010" required />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="entry-genre">Жанр</label>
+          <select class="field__control" id="entry-genre" name="genre" required>
+            <option value="">Выберите жанр</option>
+            <option value="фантастика">Фантастика</option>
+            <option value="драма">Драма</option>
+            <option value="комедия">Комедия</option>
+            <option value="триллер">Триллер</option>
+            <option value="мультфильм">Мультфильм</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="entry-rating">Оценка (1–10)</label>
+          <input class="field__control" id="entry-rating" name="rating" type="number" min="1" max="10"
+            placeholder="Например, 8" required />
+        </div>
+
+        <div class="field field--checkbox">
+          <input class="field__checkbox" id="entry-watched" name="isWatched" type="checkbox" />
+          <label class="field__label" for="entry-watched">Уже посмотрен</label>
+        </div>
+
+        <div class="entry-form__actions">
+          <button class="button button--primary" type="submit" data-action="submit">
+            Отправить в API
+          </button>
+          <button class="button button--secondary" type="button" data-action="cancel-edit" hidden>
+            Отмена
           </button>
         </div>
+      </form>
+    </section>
+  </main>
 
-        <p class="endpoint">
-          Endpoint:
-          <code class="endpoint__value" data-ui="endpoint">http://localhost:3000/items</code>
-        </p>
+  <footer class="page-footer">
+    <p class="page-footer__text">
+      Источник результата — ответы API. Не дублируйте содержимое db.json в JavaScript.
+    </p>
+  </footer>
+</body>
 
-        <div class="status" data-ui="status" role="status" aria-live="polite">
-          <strong class="status__title">Ожидание подключения</strong>
-          <span class="status__text">Реализуйте первый GET-запрос в script.js.</span>
-        </div>
-
-        <div class="collection" data-ui="collection" aria-live="polite"></div>
-      </section>
-
-      <section class="panel panel--form" aria-labelledby="form-title">
-        <div class="panel__header">
-          <div>
-            <p class="panel__eyebrow">Новая запись</p>
-            <h2 class="panel__title" id="form-title">Добавить объект</h2>
-          </div>
-        </div>
-
-        <form class="entry-form" data-form="entry">
-          <div class="field">
-            <label class="field__label" for="entry-title">Название</label>
-            <input
-              class="field__control"
-              id="entry-title"
-              name="title"
-              type="text"
-              minlength="2"
-              placeholder="Замените подсказку под свою тему"
-              required
-            />
-          </div>
-
-          <p class="entry-form__hint">
-            Добавьте остальные поля своей модели. Всего должно быть не меньше четырех
-            содержательных свойств помимо id.
-          </p>
-
-          <div class="entry-form__actions">
-            <button class="button button--primary" type="submit" data-action="submit">
-              Отправить в API
-            </button>
-          </div>
-        </form>
-      </section>
-    </main>
-
-    <footer class="page-footer">
-      <p class="page-footer__text">
-        Источник результата — ответы API. Не дублируйте содержимое db.json в JavaScript.
-      </p>
-    </footer>
-  </body>
 </html>
-

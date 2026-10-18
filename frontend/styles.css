@@ -270,6 +270,7 @@ textarea.field__control {
 .entry-form__actions {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
 }
 
 .page-footer {
@@ -298,6 +299,7 @@ textarea.field__control {
 }
 
 @media (max-width: 560px) {
+
   .page-header,
   .workspace,
   .page-footer {
@@ -322,3 +324,56 @@ textarea.field__control {
   }
 }
 
+.film-card {
+  padding: 20px;
+  border: 1px solid #e3e5f0;
+  border-radius: 16px;
+  background: #ffffff;
+  overflow-wrap: anywhere;
+}
+
+.film-card__title {
+  margin: 0 0 12px;
+}
+
+.film-card__meta {
+  margin: 0 0 6px;
+  color: #5b6275;
+}
+
+.film-card__status {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #ecebff;
+  color: #4f46e5;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.field--checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.film-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.film-card__button {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.film-card__button--danger {
+  color: #c62828;
+}
