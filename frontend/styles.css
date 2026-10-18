@@ -270,6 +270,7 @@ textarea.field__control {
 .entry-form__actions {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
 }
 
 .page-footer {
@@ -355,4 +356,24 @@ textarea.field__control {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.film-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.film-card__button {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+
+.film-card__button--danger {
+  color: #c62828;
 }
