@@ -1,12 +1,28 @@
 {
-  "items": [
+  "films": [
     {
-      "id": "starter-1",
-      "title": "Замените демонстрационную запись",
-      "category": "starter",
-      "value": 0,
-      "isActive": true
+      "id": "1",
+      "title": "Интерстеллар",
+      "year": 2014,
+      "genre": "фантастика",
+      "rating": 9,
+      "isWatched": true
+    },
+    {
+      "id": "2",
+      "title": "Зелёная миля",
+      "year": 1999,
+      "genre": "драма",
+      "rating": 10,
+      "isWatched": true
+    },
+    {
+      "id": "3",
+      "title": "Душа",
+      "year": 2020,
+      "genre": "мультфильм",
+      "rating": 8,
+      "isWatched": false
     }
   ]
 }
-
