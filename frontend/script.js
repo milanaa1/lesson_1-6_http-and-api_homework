@@ -1,16 +1,50 @@
 const API_URL = 'http://localhost:3000/films';
 
 const collectionElement = document.querySelector('[data-ui="collection"]');
+const statusElement = document.querySelector('[data-ui="status"]');
+const statusTitleElement = statusElement.querySelector('.status__title');
+const statusTextElement = statusElement.querySelector('.status__text');
+const reloadButton = document.querySelector('[data-action="reload"]');
 
-async function loadFilms() {
+function setStatus(title, text) {
+    statusTitleElement.textContent = title;
+    statusTextElement.textContent = text;
+}
+
+async function fetchFilms() {
     const response = await fetch(API_URL);
 
     if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
     }
 
-    const films = await response.json();
-    renderFilms(films);
+    return response.json();
+}
+
+async function loadFilms() {
+    setStatus('Загрузка…', 'Получаем фильмы с сервера.');
+    collectionElement.replaceChildren();
+    reloadButton.disabled = true;
+
+    try {
+        const films = await fetchFilms();
+
+        if (films.length === 0) {
+            setStatus('Список пуст', 'Пока нет ни одного фильма. Добавьте первый через форму ниже.');
+            return;
+        }
+
+        setStatus('Готово', `Фильмов в коллекции: ${films.length}`);
+        renderFilms(films);
+    } catch (error) {
+        console.error('Не удалось загрузить фильмы:', error);
+        setStatus(
+            'Ошибка загрузки',
+            'Не удалось получить фильмы. Проверьте, что API запущен, и нажмите «Обновить».'
+        );
+    } finally {
+        reloadButton.disabled = false;
+    }
 }
 
 function renderFilms(films) {
@@ -44,5 +78,7 @@ function renderFilms(films) {
         collectionElement.append(card);
     }
 }
+
+reloadButton.addEventListener('click', loadFilms);
 
 loadFilms();
